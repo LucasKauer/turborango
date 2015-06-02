@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Categoria.cs" />
-    <Compile Include="Class1.cs" />
+    <Compile Include="Restaurante.cs" />
     <Compile Include="Contato.cs" />
     <Compile Include="Localizacao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
