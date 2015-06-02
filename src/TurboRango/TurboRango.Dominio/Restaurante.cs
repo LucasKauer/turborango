@@ -8,11 +8,11 @@ namespace TurboRango.Dominio
 {
     internal class Restaurante
     {
-        private int Capacidade { get; set; }
-        private string Nome { get; set; }
-        private Localizacao Localizacao { get; set; }
-        private Contato Contato { get; set; }
-        private Categoria Categoria { get; set; }
+        internal int Capacidade { get; set; }
+        internal string Nome { get; set; }
+        internal Localizacao Localizacao { get; set; }
+        internal Contato Contato { get; set; }
+        internal Categoria Categoria { get; set; }
 
     }
 }

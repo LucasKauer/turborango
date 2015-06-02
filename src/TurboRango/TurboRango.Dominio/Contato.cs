@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace TurboRango.Dominio
+﻿namespace TurboRango.Dominio
 {
     internal class Contato
     {
-        private string Site { get; set; }
-        private string Telefone { get; set; }
+        // private Contato contato;
+        internal string Site { get; set; }
+        internal string Telefone { get; set; }
+        // internal Contato Contato
+        
+        // {
+            // get { return this.contato; }
+            // set { this.contato = value; }
+        // }
+
     }
 }
