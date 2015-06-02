@@ -1,6 +1,6 @@
 ﻿namespace TurboRango.Dominio
 {
-    enum Categoria
+    public enum Categoria
     {
         Comum, CozinhaNatural, CozinhaMexicana, Churrascaria, CozinhaJaponesa, Fastfood, Pizzaria
     }
