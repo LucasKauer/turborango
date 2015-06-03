@@ -43,6 +43,7 @@ namespace TurboRango.ImportadorXML
             Console.WriteLine(texto);*/
             #endregion
 
+            #region LINQ to XML
             const string nomeArquivo = "restaurantes.xml";
             // const === final (Java) eh uma constante
 
@@ -50,8 +51,35 @@ namespace TurboRango.ImportadorXML
 
             var nomes = restaurantesXML.ObterNomes();
 
-            var capacidadeMedia = restaurantesXML.CapacidadeMedia;
-            var capacidadeMaxima = restaurantesXML.CapacidadeMaxima;
+            var ex1a = restaurantesXML.OrdenarPorNomeAsc();
+            var ex1b = restaurantesXML.ObterSites();
+            var ex1c = restaurantesXML.CapacidadeMedia();
+            var ex1d = restaurantesXML.AgruparPorCategoria();
+            var ex1e = restaurantesXML.ApenasComUmRestaurante();
+            var ex1f = restaurantesXML.ApenasMaisPopulares();
+            var ex1g = restaurantesXML.BairrosComMenosPizzarias();
+            var ex1h = restaurantesXML.AgrupadosPorBairroPercentual();
+
+            var todos = restaurantesXML.TodosRestaurantes();
+            #endregion
+
+            #region ADO.NET
+
+            var connString = @"Data Source=.;Initial Catalog=TurboRango_dev;UID=sa;PWD=feevale";
+            // Integrated Security=True; --> em casa!
+
+            var acessoAoBanco = new CarinhaQueManipulaOBanco(connString);
+
+            //F11 entra na depuracao
+            acessoAoBanco.Inserir(new Contato
+            {
+                Site = "www.dogao.gif",
+                Telefone = "55555555"
+            });
+
+            #endregion
+
+            IEnumerable<Contato> contatos = acessoAoBanco.GetContatos();
         }
     }
 }
