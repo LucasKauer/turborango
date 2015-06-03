@@ -23,6 +23,7 @@ namespace TurboRango.ImportadorXML
         {
             NomeArquivo = nomeArquivo;
             restaurantes = XDocument.Load(NomeArquivo).Descendants("restaurante");
+			contato = XDocument.Load(NomeArquivo).Descendants("restaurante").Descendants("contato"));
         }
 
         #region Obter Nomes
@@ -56,8 +57,8 @@ namespace TurboRango.ImportadorXML
             // ).ToList();
 
         }
-        #endregion
-
+		#endregion
+		
         #region Capacidade Media
         public double CapacidadeMedia()
         {
@@ -78,7 +79,7 @@ namespace TurboRango.ImportadorXML
         }
         #endregion
 
-        public IList<Restaurante> AgruparPorCategoria()
+        public object AgruparPorCategoria()
         {
             var res = from n in restaurantes
                       group n by n.Attribute("categoria").Value into g
@@ -88,7 +89,47 @@ namespace TurboRango.ImportadorXML
                           SomatorioCapacidade = g.Sum(x => Convert.ToInt32(x.Attribute("capacidade").Value))
                       };
 
-            throw new NotImplementedException();
+            return res;
+			// throw new NotImplementedException();
         }
-    }
+		
+		// Tema
+		
+		#region Ordena Por Nome Asc
+		public IList<string> OrdenarPorNomeAsc()
+		{
+			var res = restaurantes
+                .Select(_ => new Restaurante
+                {
+                    Nome = _.Attribute("nome").Value ascending,
+                    Capacidade = Convert.ToInt32(_.Attribute("capacidade").Value)
+                });
+
+            return res.ToList(); // res.Select(x => x.Nome).OrderBy(y => y).ToList();
+			
+		}
+        #endregion
+		
+		#region Obter Sites
+
+		public IList<string> ObterSites()
+		{
+			var res = contato
+                .Select(_ => new Restaurante
+                {
+                    Site = _.Value
+                });
+
+            return res.ToList();
+			
+		}
+        #endregion
+    
+		#region Apenas Com Um Restaurante 
+		public IList<Categoria> ApenasComUmRestaurante()
+		{
+			
+		}
+		#endregion
+	}
 }
