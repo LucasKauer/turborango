@@ -84,6 +84,24 @@ namespace TurboRango.ImportadorXML
             // TEMA: CRIANDO OBJETO DO TIPO RESTAURANTES
             var _restaurantes = new Restaurantes(_connString);
 
+            _restaurantes.Inserir(new Restaurante
+            {
+                Nome = "Tiririca",
+                Capacidade = 50,
+                Categoria = Categoria.Fastfood,
+                Contato = new Contato
+                {
+                    Site = "http://github.com/tiririca",
+                    Telefone = "5555 5555"
+                },
+                Localizacao = new Localizacao
+                {
+                    Bairro = "Vila Nova",
+                    Logradouro = "ERS 239, 2755",
+                    Latitude = -29.6646122,
+                    Longitude = -51.1188255
+                }
+            });
         }
     }
 }
