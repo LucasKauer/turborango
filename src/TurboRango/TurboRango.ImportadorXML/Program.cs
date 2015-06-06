@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -102,6 +103,24 @@ namespace TurboRango.ImportadorXML
                     Longitude = -51.1188255
                 }
             });
+
+            const string _nomeArquivo = "restaurantes.xml";
+            // const === final (Java) eh uma constante
+
+            var _restaurantesXML = new RestaurantesXML(_nomeArquivo);
+            List<Restaurante> _listaRestaurantes = _restaurantesXML.TodosRestaurantes().ToList();
+
+            // foreach (var restaurante in _listaRestaurantes)
+            // {
+            //     _restaurantes.Inserir(restaurante);
+            // }
+
+            // http://stackoverflow.com/Questions/225937/foreach-vs-somelist-foreach
+            _listaRestaurantes.ForEach(delegate(Restaurante restaurante)
+            {
+                _restaurantes.Inserir(restaurante);
+            });
+
         }
     }
 }

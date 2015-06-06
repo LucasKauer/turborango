@@ -52,8 +52,10 @@ namespace TurboRango.ImportadorXML
             {
                 using (var _inserirContato = new SqlCommand(INSERT_SQL_CONTATO, _connection))
                 {
-                    _inserirContato.Parameters.Add("@Site", SqlDbType.NVarChar).Value = _contato.Site;
-                    _inserirContato.Parameters.Add("@Telefone", SqlDbType.NVarChar).Value = _contato.Telefone;
+                    // http://stackoverflow.com/questions/4958379/what-is-the-difference-between-null-and-system-dbnull-value
+                    // http://eduardopires.net.br/2012/08/c-sharp-iniciantes-syntactic-sugar/
+                    _inserirContato.Parameters.Add("@Site", SqlDbType.NVarChar).Value = _contato.Site ?? (object) DBNull.Value;
+                    _inserirContato.Parameters.Add("@Telefone", SqlDbType.NVarChar).Value = _contato.Telefone ?? (object) DBNull.Value;
 
                     _connection.Open();
                     int _idCriado = Convert.ToInt32(_inserirContato.ExecuteScalar());
