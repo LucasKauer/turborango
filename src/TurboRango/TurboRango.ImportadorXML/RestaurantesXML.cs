@@ -16,6 +16,7 @@ namespace TurboRango.ImportadorXML
         IEnumerable<XElement> restaurantes;
         
         // ctor + tab + tab --> cria construtor
+
         /// <summary>
         /// Constrói RestauranteXML a partir de um nome de arquivo
         /// </summary>
@@ -40,21 +41,21 @@ namespace TurboRango.ImportadorXML
 
             //return resultado;
 
-            var res = restaurantes
-                .Select(_ => new Restaurante
+            /*var res = restaurantes
+                .Select(n => new Restaurante
                 {
-                    Nome = _.Attribute("nome").Value,
-                    Capacidade = Convert.ToInt32(_.Attribute("capacidade").Value)
+                    Nome = n.Attribute("nome").Value,
+                    Capacidade = Convert.ToInt32(n.Attribute("capacidade").Value)
                 });
-
             return res.Where(x => x.Capacidade < 100).Select(x => x.Nome).OrderBy(x => x).ToList();
+            */
 
-            // return (
-            // return from n in restaurantes
-                // orderby n.Attribute("nome").Value // descending
-                // where Convert.ToInt32(n.Attribute("capacidade").Value) = 100;
-                // select n.Attribute("nome").Value
-            // ).ToList();
+            return (
+                from n in restaurantes
+                orderby n.Attribute("nome").Value descending
+                where Convert.ToInt32(n.Attribute("capacidade").Value) < 100
+                select n.Attribute("nome").Value
+            ).ToList();
 
         }
 		#endregion
@@ -132,36 +133,40 @@ namespace TurboRango.ImportadorXML
 
         public IList<Categoria> ApenasComUmRestaurante()
         {
-            //return restaurantes.GroupBy(x => x.Attribute("categoria").Value).Where(g => g.Count() == 1).Select(g => (Categoria)Enum.Parse(typeof(Categoria), g.Key, ignoreCase: true)).ToList();
+            //return restaurantes.GroupBy(x => x.Attribute("categoria").Value).Where(g => g.Count() == 1).Select(g => g.Key.ToEnum<Categoria>() ).ToList();
             return (
                 from n in restaurantes
                 let cat = n.Attribute("categoria").Value
                 group n by cat into g
                 where g.Count() == 1
-                // select (Categoria)Enum.Parse(typeof(Categoria), g.Key, ignoreCase: true)
                 select g.Key.ToEnum<Categoria>()
             ).ToList();
         }
 
         public IList<Categoria> ApenasMaisPopulares()
         {
-            //return restaurantes.GroupBy(n => n.Attribute("categoria").Value).Where(g => g.Count() > 2).OrderByDescending(g => g.Count()).Take(2).Select(g => (Categoria)Enum.Parse(typeof(Categoria), g.Key, ignoreCase: true)).ToList();
+            //return restaurantes.GroupBy(n => n.Attribute("categoria").Value).Where(g => g.Count() > 2).OrderByDescending(g => g.Count()).Take(2).Select(g => g.Key.ToEnum<Categoria>() ).ToList();
             return (
                 from n in restaurantes
                 group n by n.Attribute("categoria").Value into g
                 let groupLength = g.Count()
                 where groupLength > 2
                 orderby groupLength descending
-                // select (Categoria)Enum.Parse(typeof(Categoria), g.Key, ignoreCase: true)
                 select g.Key.ToEnum<Categoria>()
             ).Take(2).ToList();
         }
 
         public IList<string> BairrosComMenosPizzarias()
         {
+            //return restaurantes
+            //    .Where(n => n.Attribute("categoria").Value.ToEnum<Categoria>() == Categoria.Pizzaria)
+            //    .GroupBy(n => n.Element("localizacao").Element("bairro").Value)
+            //    .OrderBy(g => g.Count())
+            //    .Take(8)
+            //    .Select(g => g.Key)
+            //    .ToList();
             return (
                 from n in restaurantes
-                // let cat = (Categoria)Enum.Parse(typeof(Categoria), n.Attribute("categoria").Value, ignoreCase: true)
                 let cat = n.Attribute("categoria").Value.ToEnum<Categoria>()
                 where cat == Categoria.Pizzaria
                 group n by n.Element("localizacao").Element("bairro").Value into g

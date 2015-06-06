@@ -65,13 +65,13 @@ namespace TurboRango.ImportadorXML
 
             #region ADO.NET
 
-            var connString = @"Data Source=.;Initial Catalog=TurboRango_dev;UID=sa;PWD=feevale";
-            // Integrated Security=True; --> em casa!
+            // var connString = @"Data Source=.;Initial Catalog=TurboRango_dev;UID=sa;PWD=feevale"; // --> feevale!
+            var _connString = @"Data Source=.\SQLEXPRESS;Initial Catalog=TurboRango_dev;Integrated Security=True"; // --> em casa!
 
-            var acessoAoBanco = new CarinhaQueManipulaOBanco(connString);
+            var _acessoAoBanco = new CarinhaQueManipulaOBanco(_connString);
 
             //F11 entra na depuracao
-            acessoAoBanco.Inserir(new Contato
+            _acessoAoBanco.Inserir(new Contato
             {
                 Site = "www.dogao.gif",
                 Telefone = "55555555"
@@ -79,7 +79,11 @@ namespace TurboRango.ImportadorXML
 
             #endregion
 
-            IEnumerable<Contato> contatos = acessoAoBanco.GetContatos();
+            IEnumerable<Contato> _contatos = _acessoAoBanco.GetContatos();
+
+            // TEMA: CRIANDO OBJETO DO TIPO RESTAURANTES
+            var _restaurantes = new Restaurantes(_connString);
+
         }
     }
 }

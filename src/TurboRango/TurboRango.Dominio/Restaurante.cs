@@ -20,5 +20,16 @@ namespace TurboRango.Dominio
         public Contato Contato { get; set; }
         public Categoria Categoria { get; set; }
 
+       /*
+        * /// <summary>
+        * /// 
+        * /// </summary>
+        * /// <param name="x"></param>
+        * /// <returns></returns>
+        * internal string Imprimir(int x)
+        * {
+        *     return null;
+        * }
+        */
     }
 }

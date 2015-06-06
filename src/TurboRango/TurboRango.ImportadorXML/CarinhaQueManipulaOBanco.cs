@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,14 @@ namespace TurboRango.ImportadorXML
 {
     public class CarinhaQueManipulaOBanco
     {
-        private string connectionString;
+
+        // readonly? https://msdn.microsoft.com/pt-br/library/acdd6hb7.aspx
+        //  A readonly campo pode ser inicializado na declaração ou em um construtor
+        readonly string connectionString;
+        // convenção para constantes => TUDO_MAIUSCULO_SEPARADO_POR_UNDERLINE
+        // readonly static = para ser criado apenas uma vez (por classe, não por instância)
+        readonly static string INSERT_SQL = "INSERT INTO [dbo].[Contato] ([Site],[Telefone]) VALUES (@Site, @Telefone); SELECT @@IDENTITY";
+        readonly static string SELECT_SQL = "SELECT [Site],[Telefone] FROM [dbo].[Contato] (nolock)";
 
         public CarinhaQueManipulaOBanco(string connectionString)
         {
@@ -22,24 +30,33 @@ namespace TurboRango.ImportadorXML
         {
             using (var connection = new SqlConnection(this.connectionString))
             {
-                string comandoSQL = "INSERT INTO [dbo].[Contato] ([Site],[Telefone]) VALUES  (@Site, @Telefone)";
-                using (var inserirContato = new SqlCommand(comandoSQL, connection))
+                using (var inserirContato = new SqlCommand(INSERT_SQL, connection))
                 {
                     inserirContato.Parameters.Add("@Site", SqlDbType.NVarChar).Value = contato.Site;
                     inserirContato.Parameters.Add("@Telefone", SqlDbType.NVarChar).Value = contato.Telefone;
 
                     connection.Open();
-                    int resultado = inserirContato.ExecuteNonQuery();
+                    int idCriado = Convert.ToInt32(inserirContato.ExecuteScalar());
+
+                    // Debug? Olhe a aba "Output" no rodapé do Visual Studio e escolha "Debug" em "Show output from"
+                    Debug.WriteLine("Contato criado! ID no banco: {0}", idCriado);
                 }
+
+                // string comandoSQL = "INSERT INTO [dbo].[Contato] ([Site],[Telefone]) VALUES  (@Site, @Telefone)";
+                // using (var inserirContato = new SqlCommand(comandoSQL, connection))
+                // {
+                //      [...]
+                // }
             }
         }
 
         internal IEnumerable<Contato> GetContatos()
         {
+            var contatos = new List<Contato>();
+
             using (var connection = new SqlConnection(this.connectionString))
             {
-                string comandoSQL = "SELECT [Site],[Telefone] FROM [dbo].[Contato] (nolock)";
-                using (var lerContatos = new SqlCommand(comandoSQL, connection))
+                using (var lerContatos = new SqlCommand(SELECT_SQL, connection))
                 {
                     connection.Open();
 
@@ -47,15 +64,29 @@ namespace TurboRango.ImportadorXML
 
                     while (reader.Read())
                     {
-                        string site = reader.GetString(0);
-                        string telefone = reader.GetString(1); // 0 e 1 indices retornados --> INDICE DO SELECT
+                        contatos.Add(new Contato
+                        {
+                            Site = reader.GetString(0),
+                            Telefone = reader.GetString(1)
+                        });
                     }
-
-                    // int resultado = inserirContato.ExecuteNonQuery();
                 }
             }
 
-            throw new NotImplementedException();
+            return contatos;
         }
+
+        // string comandoSQL = "SELECT [Site],[Telefone] FROM [dbo].[Contato] (nolock)";
+        // using (var lerContatos = new SqlCommand(comandoSQL, connection))
+        // {
+        //     [...]
+        //
+        //     while (reader.Read())
+        //     {
+        //         string site = reader.GetString(0);
+        //         string telefone = reader.GetString(1); // 0 e 1 indices retornados --> INDICE DO SELECT
+        //     }
+        //     int resultado = inserirContato.ExecuteNonQuery();
+        // }
     }
 }
