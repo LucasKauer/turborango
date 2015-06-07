@@ -71,7 +71,7 @@ namespace TurboRango.ImportadorXML
 
             var _acessoAoBanco = new CarinhaQueManipulaOBanco(_connString);
 
-            //F11 entra na depuracao
+            // F11 entra na depuracao
             _acessoAoBanco.Inserir(new Contato
             {
                 Site = "www.dogao.gif",
