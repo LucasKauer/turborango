@@ -125,7 +125,7 @@ namespace TurboRango.ImportadorXML
             //    _restaurantes.Inserir(restaurante);
             //});
 
-            //_restaurantes.Remover(23);
+            _restaurantes.Remover(34);
 
         }
     }

@@ -19,6 +19,11 @@ namespace TurboRango.ImportadorXML
         readonly static string INSERT_SQL_LOCALIZACAO = "INSERT INTO [dbo].[Localizacao] ([Bairro], [Logradouro], [Latitude], [Longitude]) VALUES (@Bairro , @Logradouro, @Latitude, @Longitude); SELECT @@IDENTITY";
 
         readonly static string DELETE_SQL_RESTAURANTE = "DELETE FROM [dbo].[Restaurante] WHERE Id = @Id";
+        readonly static string DELETE_SQL_CONTATO = "DELETE FROM [dbo].[Contato] WHERE Id = @Id";
+        readonly static string DELETE_SQL_LOCALIZACAO = "DELETE FROM [dbo].[Restaurante] WHERE Id = @Id";
+        // SELECT AUX
+        readonly static string SELECT_SQL_CONTATO_AUX = "SELECT Id FROM Contato c WHERE EXISTS (SELECT ContatoId FROM Restaurante r WHERE Id = @Id and r.ContatoId = c.Id); SELECT @@IDENTITY";
+        readonly static string SELECT_SQL_LOCALIZACAO_AUX = "SELECT Id FROM Localizacao l WHERE EXISTS (SELECT ContatoId FROM Restaurante r WHERE Id = @Id and r.LocalizacaoId = l.Id); SELECT @@IDENTITY";
         
         public Restaurantes(string connectionString)
         {
@@ -58,12 +63,21 @@ namespace TurboRango.ImportadorXML
         {
              using (var connection = new SqlConnection(this.ConnectionString))
              {
+                 connection.Open();
+                 
                  using (var removerRestaurante = new SqlCommand(DELETE_SQL_RESTAURANTE, connection))
                  {
                      removerRestaurante.Parameters.Add("@Id", SqlDbType.NVarChar).Value = id;
-                     
-                     connection.Open();
-                     removerRestaurante.ExecuteNonQuery();
+                 }
+
+                 using (var removerContato = new SqlCommand(DELETE_SQL_CONTATO, connection))
+                 {
+                     removerContato.Parameters.Add("@Id", SqlDbType.NVarChar).Value = BuscaContatoPassandoIdRestaurante(id);
+                 }
+
+                 using (var removerLocalizacao = new SqlCommand(DELETE_SQL_LOCALIZACAO, connection))
+                 {
+                     removerLocalizacao.Parameters.Add("@Id", SqlDbType.NVarChar).Value = BuscaLocalizacaoPassandoIdRestaurante(id);
                  }
              }
         }
@@ -139,6 +153,50 @@ namespace TurboRango.ImportadorXML
                     Debug.WriteLine("Contato criado! ID no banco: {0}", idCriado);
 
                     return idCriado;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Seleciona o Contato a partir do Id do restaurante.
+        /// </summary>
+        /// <param name="id">Id do restaurante a ser manipulado</param>
+        /// <returns></returns>
+        private int BuscaContatoPassandoIdRestaurante(int id)
+        {
+            using (var connection = new SqlConnection(this.ConnectionString))
+            {
+                using (var selecionarContato = new SqlCommand(SELECT_SQL_CONTATO_AUX, connection))
+                {
+                    selecionarContato.Parameters.Add("@Id", SqlDbType.NVarChar).Value = id;
+
+                    connection.Open();
+
+                    int idContato = Convert.ToInt32(selecionarContato.ExecuteScalar());
+
+                    return idContato;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Seleciona a Localizacao a partir do Id do restaurante.
+        /// </summary>
+        /// <param name="id">Id do restaurante a ser manipulado</param>
+        /// <returns></returns>
+        private int BuscaLocalizacaoPassandoIdRestaurante(int id)
+        {
+            using (var connection = new SqlConnection(this.ConnectionString))
+            {
+                using (var selecionarLocalizacao = new SqlCommand(SELECT_SQL_LOCALIZACAO_AUX, connection))
+                {
+                    selecionarLocalizacao.Parameters.Add("@Id", SqlDbType.NVarChar).Value = id;
+
+                    connection.Open();
+
+                    int idLocalizacao = Convert.ToInt32(selecionarLocalizacao.ExecuteScalar());
+
+                    return idLocalizacao;
                 }
             }
         }
