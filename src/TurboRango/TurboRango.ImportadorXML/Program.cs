@@ -12,6 +12,10 @@ namespace TurboRango.ImportadorXML
     {
         static void Main(string[] args)
         {
+
+            const string nomeArquivo = "restaurantes.xml";
+            var restaurantesXML = new RestaurantesXML(nomeArquivo);
+
             #region Exemplos
             /* Restaurante restaurante = new Restaurante();
             Console.WriteLine(restaurante.Capacidade.HasValue ? 
@@ -45,10 +49,10 @@ namespace TurboRango.ImportadorXML
             #endregion
 
             #region LINQ to XML
-            const string nomeArquivo = "restaurantes.xml";
+            /*const string nomeArquivo = "restaurantes.xml";
             // const === final (Java) eh uma constante
 
-            var restaurantesXML = new RestaurantesXML(nomeArquivo);
+            var restaurantesXML = new RestaurantesXML(nomeArquivo);*/
 
             var nomes = restaurantesXML.ObterNomes();
 
@@ -80,7 +84,7 @@ namespace TurboRango.ImportadorXML
 
             #endregion
 
-            IEnumerable<Contato> _contatos = _acessoAoBanco.GetContatos();
+            /* IEnumerable<Contato> _contatos = _acessoAoBanco.GetContatos(); */
 
             // TEMA: CRIANDO OBJETO DO TIPO RESTAURANTES
             var _restaurantes = new Restaurantes(_connString);
@@ -116,10 +120,12 @@ namespace TurboRango.ImportadorXML
             // }
 
             // http://stackoverflow.com/Questions/225937/foreach-vs-somelist-foreach
-            _listaRestaurantes.ForEach(delegate(Restaurante restaurante)
-            {
-                _restaurantes.Inserir(restaurante);
-            });
+            //_listaRestaurantes.ForEach(delegate(Restaurante restaurante)
+            //{
+            //    _restaurantes.Inserir(restaurante);
+            //});
+
+            _restaurantes.Remover(23);
 
         }
     }

@@ -19,12 +19,16 @@ namespace TurboRango.ImportadorXML
         readonly static string INSERT_SQL_LOCALIZACAO = "INSERT INTO [dbo].[Localizacao] ([Bairro], [Logradouro], [Latitude], [Longitude]) VALUES (@Bairro , @Logradouro, @Latitude, @Longitude); SELECT @@IDENTITY";
 
         readonly static string DELETE_SQL_RESTAURANTE = "DELETE FROM [dbo].[Restaurante] WHERE Id = @Id";
-
+        
         public Restaurantes(string connectionString)
         {
             ConnectionString = connectionString;
         }
 
+        /// <summary>
+        /// Insere restaurante no banco de dados a partir de um objeto Restaurante
+        /// </summary>
+        /// <param name="restaurante">Restaurante a ser manipulado</param>
         internal void Inserir(Restaurante restaurante)
         {
             using (var connection = new SqlConnection(this.ConnectionString))
@@ -46,6 +50,10 @@ namespace TurboRango.ImportadorXML
             }
         }
 
+        /// <summary>
+        /// Remove restaurante no banco de dados a partir de um id
+        /// </summary>
+        /// <param name="id">Id do restaurante a ser manipulado</param>
         public void Remover(int id)
         {
              using (var connection = new SqlConnection(this.ConnectionString))
@@ -55,20 +63,36 @@ namespace TurboRango.ImportadorXML
                      removerRestaurante.Parameters.Add("@Id", SqlDbType.NVarChar).Value = id;
                      
                      connection.Open();
+                     removerRestaurante.ExecuteNonQuery();
                  }
              }
         }
 
+        /// <summary>
+        /// Busca e lista todos os restaurantes que estão no banco de dados
+        /// </summary>
+        /// <returns>Retorna uma lista de Restaurantes</returns>
         public IEnumerable<Restaurante> Todos()
         {
             return null;
         }
 
+        /// <summary>
+        /// Atualiza restaurante no banco de dados a partir de um id e de um Restaurante
+        /// </summary>
+        /// <param name="id">Id do restaurante a ser manipulado</param>
+        /// <param name="restaurante">Restaurante atualizado</param>
         public void Atualizar(int id, Restaurante restaurante)
         {
 
         }
 
+        /// <summary>
+        /// Metodo privado que insere um Contato na tabela Contato no banco de dados.
+        /// Auxilia na inserção de um restaurante na tabela Restaurante
+        /// </summary>
+        /// <param name="contato">Contato a ser manipulado</param>
+        /// <returns>Retorna o Id do Contato inserido</returns>
         private int InserirContato(Contato contato)
         {
             using (var connection = new SqlConnection(this.ConnectionString))
@@ -91,6 +115,12 @@ namespace TurboRango.ImportadorXML
             }
         }
 
+        /// <summary>
+        /// Metodo privado que insere uma Localizacao na tabela Localizacao no banco de dados.
+        /// Auxilia na inserção de um restaurante na tabela Restaurante
+        /// </summary>
+        /// <param name="localizacao">Localizacao a ser manipulada</param>
+        /// <returns>Retorna o Id da Localizacao inserida</returns>
         private int InserirLocalizacao(Localizacao localizacao)
         {
             using (var connection = new SqlConnection(this.ConnectionString))
