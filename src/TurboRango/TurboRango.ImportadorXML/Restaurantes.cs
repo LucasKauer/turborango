@@ -27,36 +27,36 @@ namespace TurboRango.ImportadorXML
 
         internal void Inserir(Restaurante restaurante)
         {
-            using (var _connection = new SqlConnection(this.ConnectionString))
+            using (var connection = new SqlConnection(this.ConnectionString))
             {
-                using (var _inserirRestaurante = new SqlCommand(INSERT_SQL_RESTAURANTE, _connection))
+                using (var inserirRestaurante = new SqlCommand(INSERT_SQL_RESTAURANTE, connection))
                 {
-                    _inserirRestaurante.Parameters.Add("@Capacidade", SqlDbType.Int).Value = restaurante.Capacidade;
-                    _inserirRestaurante.Parameters.Add("@Nome", SqlDbType.NVarChar).Value = restaurante.Nome;
-                    _inserirRestaurante.Parameters.Add("@Categoria", SqlDbType.NVarChar).Value = restaurante.Categoria;
-                    _inserirRestaurante.Parameters.Add("@ContatoId", SqlDbType.Int).Value = InserirContato(restaurante.Contato);
-                    _inserirRestaurante.Parameters.Add("@LocalizacaoId", SqlDbType.Int).Value = InserirLocalizacao(restaurante.Localizacao);
+                    inserirRestaurante.Parameters.Add("@Capacidade", SqlDbType.Int).Value = restaurante.Capacidade;
+                    inserirRestaurante.Parameters.Add("@Nome", SqlDbType.NVarChar).Value = restaurante.Nome;
+                    inserirRestaurante.Parameters.Add("@Categoria", SqlDbType.NVarChar).Value = restaurante.Categoria;
+                    inserirRestaurante.Parameters.Add("@ContatoId", SqlDbType.Int).Value = InserirContato(restaurante.Contato);
+                    inserirRestaurante.Parameters.Add("@LocalizacaoId", SqlDbType.Int).Value = InserirLocalizacao(restaurante.Localizacao);
 
-                    _connection.Open();
-                    int _idCriado = Convert.ToInt32(_inserirRestaurante.ExecuteScalar());
+                    connection.Open();
+                    int idCriado = Convert.ToInt32(inserirRestaurante.ExecuteScalar());
 
                     // Debug? Olhe a aba "Output" no rodapé do Visual Studio e escolha "Debug" em "Show output from"
-                    Debug.WriteLine("Contato criado! ID no banco: {0}", _idCriado);
+                    Debug.WriteLine("Contato criado! ID no banco: {0}", idCriado);
                 }
             }
         }
 
         public void Remover(int id)
         {
-            // using (var _connection = new SqlConnection(this.ConnectionString))
-            // {
-            //     using (var _removerRestaurante = new SqlCommand(DELETE_SQL_RESTAURANTE, _connection))
-            //     {
-            //         _removerRestaurante.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+             using (var connection = new SqlConnection(this.ConnectionString))
+             {
+                 using (var removerRestaurante = new SqlCommand(DELETE_SQL_RESTAURANTE, connection))
+                 {
+                     removerRestaurante.Parameters.Add("@Id", SqlDbType.NVarChar).Value = id;
                      
-            //         _connection.Open();
-            //     }
-            // }
+                     connection.Open();
+                 }
+             }
         }
 
         public IEnumerable<Restaurante> Todos()
@@ -71,44 +71,44 @@ namespace TurboRango.ImportadorXML
 
         private int InserirContato(Contato contato)
         {
-            using (var _connection = new SqlConnection(this.ConnectionString))
+            using (var connection = new SqlConnection(this.ConnectionString))
             {
-                using (var _inserirContato = new SqlCommand(INSERT_SQL_CONTATO, _connection))
+                using (var inserirContato = new SqlCommand(INSERT_SQL_CONTATO, connection))
                 {
                     // http://stackoverflow.com/questions/4958379/what-is-the-difference-between-null-and-system-dbnull-value
                     // http://eduardopires.net.br/2012/08/c-sharp-iniciantes-syntactic-sugar/
-                    _inserirContato.Parameters.Add("@Site", SqlDbType.NVarChar).Value = contato.Site ?? (object) DBNull.Value;
-                    _inserirContato.Parameters.Add("@Telefone", SqlDbType.NVarChar).Value = contato.Telefone ?? (object) DBNull.Value;
+                    inserirContato.Parameters.Add("@Site", SqlDbType.NVarChar).Value = contato.Site ?? (object) DBNull.Value;
+                    inserirContato.Parameters.Add("@Telefone", SqlDbType.NVarChar).Value = contato.Telefone ?? (object) DBNull.Value;
 
-                    _connection.Open();
-                    int _idCriado = Convert.ToInt32(_inserirContato.ExecuteScalar());
+                    connection.Open();
+                    int idCriado = Convert.ToInt32(inserirContato.ExecuteScalar());
 
                     // Debug? Olhe a aba "Output" no rodapé do Visual Studio e escolha "Debug" em "Show output from"
-                    Debug.WriteLine("Contato criado! ID no banco: {0}", _idCriado);
+                    Debug.WriteLine("Contato criado! ID no banco: {0}", idCriado);
 
-                    return _idCriado;
+                    return idCriado;
                 }
             }
         }
 
         private int InserirLocalizacao(Localizacao localizacao)
         {
-            using (var _connection = new SqlConnection(this.ConnectionString))
+            using (var connection = new SqlConnection(this.ConnectionString))
             {
-                using (var _inserirLocalizacao = new SqlCommand(INSERT_SQL_LOCALIZACAO, _connection))
+                using (var inserirLocalizacao = new SqlCommand(INSERT_SQL_LOCALIZACAO, connection))
                 {
-                    _inserirLocalizacao.Parameters.Add("@Bairro", SqlDbType.NVarChar).Value = localizacao.Bairro;
-                    _inserirLocalizacao.Parameters.Add("@Logradouro", SqlDbType.NVarChar).Value = localizacao.Logradouro;
-                    _inserirLocalizacao.Parameters.Add("@Latitude", SqlDbType.Float).Value = localizacao.Latitude;
-                    _inserirLocalizacao.Parameters.Add("@Longitude", SqlDbType.Float).Value = localizacao.Longitude;
+                    inserirLocalizacao.Parameters.Add("@Bairro", SqlDbType.NVarChar).Value = localizacao.Bairro;
+                    inserirLocalizacao.Parameters.Add("@Logradouro", SqlDbType.NVarChar).Value = localizacao.Logradouro;
+                    inserirLocalizacao.Parameters.Add("@Latitude", SqlDbType.Float).Value = localizacao.Latitude;
+                    inserirLocalizacao.Parameters.Add("@Longitude", SqlDbType.Float).Value = localizacao.Longitude;
 
-                    _connection.Open();
-                    int _idCriado = Convert.ToInt32(_inserirLocalizacao.ExecuteScalar());
+                    connection.Open();
+                    int idCriado = Convert.ToInt32(inserirLocalizacao.ExecuteScalar());
 
                     // Debug? Olhe a aba "Output" no rodapé do Visual Studio e escolha "Debug" em "Show output from"
-                    Debug.WriteLine("Contato criado! ID no banco: {0}", _idCriado);
+                    Debug.WriteLine("Contato criado! ID no banco: {0}", idCriado);
 
-                    return _idCriado;
+                    return idCriado;
                 }
             }
         }

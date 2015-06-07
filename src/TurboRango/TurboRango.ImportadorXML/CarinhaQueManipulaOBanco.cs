@@ -15,7 +15,7 @@ namespace TurboRango.ImportadorXML
 
         // readonly? https://msdn.microsoft.com/pt-br/library/acdd6hb7.aspx
         //  A readonly campo pode ser inicializado na declaração ou em um construtor
-        readonly string connectionString;
+        readonly string _connectionString;
         // convenção para constantes => TUDO_MAIUSCULO_SEPARADO_POR_UNDERLINE
         // readonly static = para ser criado apenas uma vez (por classe, não por instância)
         readonly static string INSERT_SQL = "INSERT INTO [dbo].[Contato] ([Site],[Telefone]) VALUES (@Site, @Telefone); SELECT @@IDENTITY";
@@ -23,12 +23,12 @@ namespace TurboRango.ImportadorXML
 
         public CarinhaQueManipulaOBanco(string connectionString)
         {
-            this.connectionString = connectionString;
+            this._connectionString = connectionString;
         }
 
         internal void Inserir(Contato contato)
         {
-            using (var connection = new SqlConnection(this.connectionString))
+            using (var connection = new SqlConnection(this._connectionString))
             {
                 using (var inserirContato = new SqlCommand(INSERT_SQL, connection))
                 {
@@ -54,7 +54,7 @@ namespace TurboRango.ImportadorXML
         {
             var contatos = new List<Contato>();
 
-            using (var connection = new SqlConnection(this.connectionString))
+            using (var connection = new SqlConnection(this._connectionString))
             {
                 using (var lerContatos = new SqlCommand(SELECT_SQL, connection))
                 {
