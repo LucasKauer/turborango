@@ -24,7 +24,15 @@ namespace TurboRango.ImportadorXML
         // SELECT AUX
         readonly static string SELECT_SQL_CONTATO_AUX = "SELECT Id FROM Contato c WHERE EXISTS (SELECT ContatoId FROM Restaurante r WHERE Id = @Id and r.ContatoId = c.Id); SELECT @@IDENTITY";
         readonly static string SELECT_SQL_LOCALIZACAO_AUX = "SELECT Id FROM Localizacao l WHERE EXISTS (SELECT ContatoId FROM Restaurante r WHERE Id = @Id and r.LocalizacaoId = l.Id); SELECT @@IDENTITY";
-        
+
+        readonly static string SELECT_SQL_RESTAURANTE = "SELECT [Restaurante].[Capacidade], [Restaurante].[Nome], [Restaurante].[Categoria],"
+            + " [Contato].[Site], [Contato].[Telefone],"
+            + " [Localizacao].[Bairro], [Localizacao].[Logradouro], [Localizacao].[Latitude], [Localizacao].[Longitude]"
+            + " FROM [dbo].[Restaurante]"
+            + " INNER JOIN [dbo].[Contato] ON [dbo].[Contato].Id = [dbo].[Restaurante].ContatoId"
+            + " INNER JOIN [dbo].[Localizacao] ON [dbo].[Localizacao].Id = [dbo].[Restaurante].LocalizacaoId";
+
+
         public Restaurantes(string connectionString)
         {
             ConnectionString = connectionString;
@@ -93,7 +101,41 @@ namespace TurboRango.ImportadorXML
         /// <returns>Retorna uma lista de Restaurantes</returns>
         public IEnumerable<Restaurante> Todos()
         {
-            return null;
+            var listaRestaurantes = new List<Restaurante>();
+
+            using (var connection = new SqlConnection(this.ConnectionString))
+            {
+                using (var selecionarTodosRestaurantes = new SqlCommand(SELECT_SQL_RESTAURANTE, connection))
+                {
+                    connection.Open();
+
+                    var reader = selecionarTodosRestaurantes.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        listaRestaurantes.Add(new Restaurante
+                        {
+                            Capacidade = reader.GetInt32(0),
+                            Nome = reader.GetString(1),
+                            Categoria = (Categoria) Enum.Parse(typeof(Categoria), reader.GetString(2), ignoreCase: true),
+                            Contato = new Contato
+                            {
+                                Site = reader.IsDBNull(3) ? null : reader.GetString(3),
+                                Telefone = reader.IsDBNull(4) ? null : reader.GetString(4)
+                            },
+                            Localizacao = new Localizacao
+                            {
+                                Bairro = reader.GetString(5),
+                                Logradouro = reader.GetString(6),
+                                Latitude = reader.GetDouble(7),
+                                Longitude = reader.GetDouble(8),
+                            }
+                        });
+                    }
+                }
+            }
+            
+            return listaRestaurantes;
         }
 
         /// <summary>
