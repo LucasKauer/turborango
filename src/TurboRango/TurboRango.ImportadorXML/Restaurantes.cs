@@ -59,25 +59,30 @@ namespace TurboRango.ImportadorXML
         /// Remove restaurante no banco de dados a partir de um id
         /// </summary>
         /// <param name="id">Id do restaurante a ser manipulado</param>
-        public void Remover(int id)
+        internal void Remover(int id)
         {
+             var idContato = BuscaContatoPassandoIdRestaurante(id);
+             var idLocalizacao = BuscaLocalizacaoPassandoIdRestaurante(id);
+
              using (var connection = new SqlConnection(this.ConnectionString))
              {
                  connection.Open();
-                 
+
                  using (var removerRestaurante = new SqlCommand(DELETE_SQL_RESTAURANTE, connection))
                  {
                      removerRestaurante.Parameters.Add("@Id", SqlDbType.NVarChar).Value = id;
+                     removerRestaurante.ExecuteNonQuery();
                  }
 
                  using (var removerContato = new SqlCommand(DELETE_SQL_CONTATO, connection))
                  {
-                     removerContato.Parameters.Add("@Id", SqlDbType.NVarChar).Value = BuscaContatoPassandoIdRestaurante(id);
+                     removerContato.Parameters.Add("@Id", SqlDbType.NVarChar).Value = idContato;
+                     removerContato.ExecuteNonQuery();
                  }
 
                  using (var removerLocalizacao = new SqlCommand(DELETE_SQL_LOCALIZACAO, connection))
                  {
-                     removerLocalizacao.Parameters.Add("@Id", SqlDbType.NVarChar).Value = BuscaLocalizacaoPassandoIdRestaurante(id);
+                     removerLocalizacao.Parameters.Add("@Id", SqlDbType.NVarChar).Value = idLocalizacao;
                  }
              }
         }
