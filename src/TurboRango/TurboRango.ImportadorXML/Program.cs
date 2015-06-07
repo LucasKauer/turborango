@@ -84,7 +84,7 @@ namespace TurboRango.ImportadorXML
 
             #endregion
 
-            /* IEnumerable<Contato> _contatos = _acessoAoBanco.GetContatos(); */
+            IEnumerable<Contato> _contatos = _acessoAoBanco.GetContatos();
 
             // TEMA: CRIANDO OBJETO DO TIPO RESTAURANTES
             var _restaurantes = new Restaurantes(_connString);
@@ -125,7 +125,7 @@ namespace TurboRango.ImportadorXML
             //    _restaurantes.Inserir(restaurante);
             //});
 
-            _restaurantes.Remover(23);
+            //_restaurantes.Remover(23);
 
         }
     }

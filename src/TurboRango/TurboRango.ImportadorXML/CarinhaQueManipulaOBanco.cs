@@ -66,8 +66,8 @@ namespace TurboRango.ImportadorXML
                     {
                         contatos.Add(new Contato
                         {
-                            Site = reader.GetString(0),
-                            Telefone = reader.GetString(1)
+                            Site = reader.IsDBNull(0) ? null : reader.GetString(0),
+                            Telefone = reader.IsDBNull(1) ? null : reader.GetString(1)
                         });
                     }
                 }
