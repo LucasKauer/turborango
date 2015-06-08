@@ -165,6 +165,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506082005520_InitialCreate.cs" />
+    <Compile Include="Migrations\201506082005520_InitialCreate.Designer.cs">
+      <DependentUpon>201506082005520_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506082013597_CriarEntidades.cs" />
+    <Compile Include="Migrations\201506082013597_CriarEntidades.Designer.cs">
+      <DependentUpon>201506082013597_CriarEntidades.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -248,6 +257,14 @@
       <Project>{5b54858e-bc73-44a2-8de2-27c2d56cbd28}</Project>
       <Name>TurboRango.Dominio</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201506082005520_InitialCreate.resx">
+      <DependentUpon>201506082005520_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506082013597_CriarEntidades.resx">
+      <DependentUpon>201506082013597_CriarEntidades.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
