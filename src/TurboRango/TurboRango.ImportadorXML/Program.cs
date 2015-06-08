@@ -69,19 +69,12 @@ namespace TurboRango.ImportadorXML
             #endregion
 
             #region ADO.NET
-
             // var connString = @"Data Source=.;Initial Catalog=TurboRango_dev;UID=sa;PWD=feevale"; // --> feevale!
             var _connString = @"Data Source=.\SQLEXPRESS;Initial Catalog=TurboRango_dev;Integrated Security=True"; // --> em casa!
 
             var _acessoAoBanco = new CarinhaQueManipulaOBanco(_connString);
 
             // F11 entra na depuracao
-            _acessoAoBanco.Inserir(new Contato
-            {
-                Site = "www.dogao.gif",
-                Telefone = "55555555"
-            });
-
             #endregion
 
             IEnumerable<Contato> _contatos = _acessoAoBanco.GetContatos();
