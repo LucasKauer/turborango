@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TurboRango.Dominio
 {
-    public class Restaurante
+    public class Restaurante : Entidade
     {
         // F12 em cima do nome da classe redireciona para a classe
 
@@ -16,8 +16,9 @@ namespace TurboRango.Dominio
         public int? Capacidade { get; set; }
         // Int32 or Int64
         public string Nome { get; set; }
-        public Localizacao Localizacao { get; set; }
-        public Contato Contato { get; set; }
+        // virtual --> pode ser sub-escrito
+        public virtual Localizacao Localizacao { get; set; }
+        public virtual Contato Contato { get; set; }
         public Categoria Categoria { get; set; }
 
        /*
