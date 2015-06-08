@@ -89,64 +89,13 @@ namespace TurboRango.ImportadorXML
             // TEMA: CRIANDO OBJETO DO TIPO RESTAURANTES
             var _restaurantes = new Restaurantes(_connString);
 
-            _restaurantes.Inserir(new Restaurante
-            {
-                Nome = "Tiririca",
-                Capacidade = 50,
-                Categoria = Categoria.Fastfood,
-                Contato = new Contato
-                {
-                    Site = "http://github.com/tiririca",
-                    Telefone = "5555 5555"
-                },
-                Localizacao = new Localizacao
-                {
-                    Bairro = "Vila Nova",
-                    Logradouro = "ERS 239, 2755",
-                    Latitude = -29.6646122,
-                    Longitude = -51.1188255
-                }
-            });
-
             const string _nomeArquivo = "restaurantes.xml";
             // const === final (Java) eh uma constante
 
             var _restaurantesXML = new RestaurantesXML(_nomeArquivo);
             List<Restaurante> _listaRestaurantes = _restaurantesXML.TodosRestaurantes().ToList();
 
-            // foreach (var restaurante in _listaRestaurantes)
-            // {
-            //     _restaurantes.Inserir(restaurante);
-            // }
-
-            // http://stackoverflow.com/Questions/225937/foreach-vs-somelist-foreach
-            // _listaRestaurantes.ForEach(delegate(Restaurante restaurante)
-            // {
-            //     _restaurantes.Inserir(restaurante);
-            // });
-
-            //_restaurantes.Remover(35);
-
             var listaComTodosRestaurantes = _restaurantes.Todos();
-
-            // _restaurantes.Atualizar(25, new Restaurante
-            // {
-            //     Nome = "Tiririca",
-            //     Capacidade = 50,
-            //     Categoria = Categoria.Fastfood,
-            //     Contato = new Contato
-            //     {
-            //         Site = "http://github.com/tiririca",
-            //         Telefone = "5555 5555"
-            //     },
-            //     Localizacao = new Localizacao
-            //     {
-            //         Bairro = "Vila Nova",
-            //         Logradouro = "ERS 239, 2755",
-            //         Latitude = -29.6646122,
-            //         Longitude = -51.1188255
-            //     }
-            // });
         }
     }
 }
