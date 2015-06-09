@@ -1,0 +1,82 @@
+-- Introdução a Arquitetura MVC: 9min:31
+
+MODEL -->
+    implementa a lógica dos dados (database) da aplicação
+        Code First
+        Database pronto: usar Model First. A partir do banco de dados você vai abstrair toda a parte das entidades existentes e ele vai criar as classes com o contexto automaticamente
+        Code Frist. Porém tendo banco de dados: engenharia reversa
+
+VIEW -->
+    é uma interface de usuário escrita em html 5 e css 3.
+    Scaffold são os templates. Na verdade, são códigos repetitivos.
+
+CONTROLLER -->
+    controla a ação do internauta, faz a ponte entre a view e o model
+
+
+CICLO -->
+    RESQUEST --> CONTROLLER --> VIEW --> RESPONSE
+
+-- Estrutura Projeto MVC: 14min:27
+    /App_Start - configurações da aplicação 
+    /Content - repositório de CSS (site e bootstrap)
+    /Controllers - responde pelas entradas no Browser, processa e retorna ao internauta
+    /Models - modelo de dados dos objetos (classes, banco de dados)
+    /Scripts - aquivos JavaScript
+    /Views - (UI) arquivos com HTML 5
+    /Filters - filtros a serem aplicados
+
+-- O que é um Controller? 14min:47
+    É uma classe comum no C# : Controller
+
+      Tipos de Retorno:  
+        Content, File, View, HttpNotFound,
+        JavaScript, Json, PartialView,
+        Redirect, RedirectToAction
+
+    Controller é uma palavra chave no nome da classe porque ele : de controller
+    
+    Comentário imbecíl: RETORNAR GEIZOOM EM C# É TÃO <3
+   
+    Por exemplo:
+
+    public JsonResult GetJson()
+    {
+        // dinâmico <3
+        var produto = new
+        {
+            ID = 12
+            Nome = "Bicicleta",
+            Qtde = 10
+        };
+        return Json(produto, JsonRequestBehavior.AllowGet);
+    }
+    
+    Exemplo para enviar dados via URL (e valor default nos parametros dos metodos):
+    
+    // GET: /<NomeDaClasse_SemOController>/GetDados?nome=Renato&idade=45
+    public string GetDados(string nome, int idade = 17 /* valor default */)
+    {
+        // impede de receber parametros inadequados (#NaoPodeNaSala)
+        return HttpUtility.HtmlEncode(string.Format("Bem vindo {0} com idade {1}", nome, idade));
+    }
+
+-- Controller Part II: 8min:13
+    GET --> Busca
+    POST --> Envia
+
+    // POST: /Restaurantes/Edit/5
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public ActionResult Edit([Bind(Include="<ColunaTabela>, <ColunaTabela>")]
+    {
+        if (ModelState.IsValid)
+        {
+            db.Entry(restaurante).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        return View(restaurante);
+    }
+
+FALTA: 5++
