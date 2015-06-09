@@ -3,7 +3,7 @@ namespace TurboRango.Web.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class Criar_Tabelas : DbMigration
     {
         public override void Up()
         {
@@ -11,40 +11,40 @@ namespace TurboRango.Web.Migrations
                 "dbo.Restaurantes",
                 c => new
                     {
-                        ID = c.String(nullable: false, maxLength: 128),
+                        Id = c.String(nullable: false, maxLength: 128),
                         Capacidade = c.Int(),
                         Nome = c.String(),
                         Categoria = c.Int(nullable: false),
-                        Contato_ID = c.String(maxLength: 128),
-                        Localizacao_ID = c.String(maxLength: 128),
+                        Contato_Id = c.String(maxLength: 128),
+                        Localizacao_Id = c.String(maxLength: 128),
                     })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Contatoes", t => t.Contato_ID)
-                .ForeignKey("dbo.Localizacaos", t => t.Localizacao_ID)
-                .Index(t => t.Contato_ID)
-                .Index(t => t.Localizacao_ID);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Contatoes", t => t.Contato_Id)
+                .ForeignKey("dbo.Localizacaos", t => t.Localizacao_Id)
+                .Index(t => t.Contato_Id)
+                .Index(t => t.Localizacao_Id);
             
             CreateTable(
                 "dbo.Contatoes",
                 c => new
                     {
-                        ID = c.String(nullable: false, maxLength: 128),
+                        Id = c.String(nullable: false, maxLength: 128),
                         Site = c.String(),
                         Telefone = c.String(),
                     })
-                .PrimaryKey(t => t.ID);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.Localizacaos",
                 c => new
                     {
-                        ID = c.String(nullable: false, maxLength: 128),
+                        Id = c.String(nullable: false, maxLength: 128),
                         Bairro = c.String(),
                         Latitude = c.Double(nullable: false),
                         Logradouro = c.String(),
                         Longitude = c.Double(nullable: false),
                     })
-                .PrimaryKey(t => t.ID);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -78,6 +78,8 @@ namespace TurboRango.Web.Migrations
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
                         SecurityStamp = c.String(),
+                        PhoneNumber = c.String(),
+                        PhoneNumberConfirmed = c.Boolean(nullable: false),
                         TwoFactorEnabled = c.Boolean(nullable: false),
                         LockoutEndDateUtc = c.DateTime(),
                         LockoutEnabled = c.Boolean(nullable: false),
@@ -120,16 +122,16 @@ namespace TurboRango.Web.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Restaurantes", "Localizacao_ID", "dbo.Localizacaos");
-            DropForeignKey("dbo.Restaurantes", "Contato_ID", "dbo.Contatoes");
+            DropForeignKey("dbo.Restaurantes", "Localizacao_Id", "dbo.Localizacaos");
+            DropForeignKey("dbo.Restaurantes", "Contato_Id", "dbo.Contatoes");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.Restaurantes", new[] { "Localizacao_ID" });
-            DropIndex("dbo.Restaurantes", new[] { "Contato_ID" });
+            DropIndex("dbo.Restaurantes", new[] { "Localizacao_Id" });
+            DropIndex("dbo.Restaurantes", new[] { "Contato_Id" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");

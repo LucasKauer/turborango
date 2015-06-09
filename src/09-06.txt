@@ -1,0 +1,13 @@
+Web.config
+    -- Alterar <compilation debug="true" targetFramework="4.5" /> para <compilation debug="false" targetFramework="4.5" />
+        CHECK run without debugging. --> OK
+
+Mais recomendado que alterar o Web.config:
+    BundleConfig
+        -- Ao final
+
+#if DEBUG
+        BundleTable.EnableOptimizations = false;
+#else        
+        BundleTable.EnableOptimizations = true;
+#endif

@@ -7,13 +7,13 @@ namespace TurboRango.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class CriarEntidades : IMigrationMetadata
+    public sealed partial class Criar_Tabelas : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CriarEntidades));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Criar_Tabelas));
         
         string IMigrationMetadata.Id
         {
-            get { return "201506082013597_CriarEntidades"; }
+            get { return "201506091814308_Criar_Tabelas"; }
         }
         
         string IMigrationMetadata.Source

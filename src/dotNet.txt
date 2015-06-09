@@ -1,0 +1,20 @@
+08/06
+set start up project
+f5
+
+search: _Layout.cshtml
+search: Index.cshtml --> do Home
+
+(LocalDb)\v11.0 --> SQL Server
+
+registrar usuario --> senha chata AI CRIA TABELA
+
+Dominio --> new class --> Entidade -->
+
+NEW SCAFOLDER ITEM... --> MVC 5 CONTROLLER WITH VIEWS, USING ENTITY FRAMEWORK
+/restaurantes /Create
+
+
+Package Manager Console == nuget.org --> Package Source == TurboRango.Web --> Enable-Migrations --> Add-Migration --> NOME: CriarEntidade --> Update-Database
+
+_Layout.cshtml --> linha 26

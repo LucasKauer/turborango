@@ -8,6 +8,6 @@ namespace TurboRango.Dominio
 {
     public abstract class Entidade
     {
-        public string ID { get; set; }
+        public string Id { get; set; }
     }
 }
