@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5B54858E-BC73-44A2-8DE2-27C2D56CBD28}</ProjectGuid>
+    <ProjectGuid>{EF926A69-D74E-4117-9695-5D743A773ED6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TurboRango.Dominio</RootNamespace>
@@ -40,11 +40,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Categoria.cs" />
-    <Compile Include="Entidade.cs" />
-    <Compile Include="Restaurante.cs" />
     <Compile Include="Contato.cs" />
+    <Compile Include="Entidade.cs" />
     <Compile Include="Localizacao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Restaurante.cs" />
     <Compile Include="Utils\StringExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -18,3 +18,6 @@ NEW SCAFOLDER ITEM... --> MVC 5 CONTROLLER WITH VIEWS, USING ENTITY FRAMEWORK
 Package Manager Console == nuget.org --> Package Source == TurboRango.Web --> Enable-Migrations --> Add-Migration --> NOME: CriarEntidade --> Update-Database
 
 _Layout.cshtml --> linha 26
+
+
+Install-Package EntityFramework -IncludePrerelease

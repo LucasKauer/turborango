@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 using TurboRango.Dominio;
 using TurboRango.Dominio.Utils;
 
@@ -14,7 +12,7 @@ namespace TurboRango.ImportadorXML
         public string NomeArquivo { get; private set; }
 
         IEnumerable<XElement> restaurantes;
-        
+
         // ctor + tab + tab --> cria construtor
 
         /// <summary>
@@ -58,8 +56,8 @@ namespace TurboRango.ImportadorXML
             ).ToList();
 
         }
-		#endregion
-		
+        #endregion
+
         #region Capacidade Media
         public double CapacidadeMedia()
         {
@@ -89,11 +87,10 @@ namespace TurboRango.ImportadorXML
                           Restaurante = g.ToList(),
                           SomatorioCapacidade = g.Sum(x => Convert.ToInt32(x.Attribute("capacidade").Value))
                       };
-
             return res;
 			// throw new NotImplementedException();
         }*/
-		
+
         #region Tema
 
         public IList<string> OrdenarPorNomeAsc()
@@ -194,7 +191,6 @@ namespace TurboRango.ImportadorXML
             if (file.Exists)
             {
                 IEnumerable<Restaurante> restaurantes;
-
                 // Usar o FileStream para abrir e ler o arquivo XML
                 FileStream fileStream = new FileStream(@"~/restaurantes.xml", FileMode.Open);
                 
@@ -206,13 +202,11 @@ namespace TurboRango.ImportadorXML
                 
                 // Fecha o arquivo
                 fileStream.Close(); 
-
                 // Retorna o resultado da deserialização
                 return restaurantes;
-
             }
             else Console.WriteLine("!Arquivo Existe");*/
-            
+
             // Element --> pega o primeiro elemento daquela familia (nome informado)
             // Elements --> pega todos os elementos daquela familia
             // Atributo --> pega o atributo (Ex.: nome do <restaurante>)
@@ -226,21 +220,21 @@ namespace TurboRango.ImportadorXML
                 let localizacao = _.Element("localizacao")
                 select new Restaurante
                 {
-                     Nome = _.Attribute("nome").Value,
-                     Capacidade = Convert.ToInt32(_.Attribute("capacidade").Value),
-                     Categoria = (Categoria)Enum.Parse(typeof(Categoria), _.Attribute("categoria").Value, ignoreCase: true),
-                     Contato = new Contato
-                     {
-                          Site = site,
-                          Telefone = telefone
-                     },
-                     Localizacao = new Localizacao
-                     {
-                          Bairro = localizacao.Element("bairro").Value,
-                          Logradouro = localizacao.Element("logradouro").Value,
-                          Latitude = Convert.ToDouble(localizacao.Element("latitude").Value),
-                          Longitude = Convert.ToDouble(localizacao.Element("longitude").Value)
-                     }
+                    Nome = _.Attribute("nome").Value,
+                    Capacidade = Convert.ToInt32(_.Attribute("capacidade").Value),
+                    Categoria = (Categoria)Enum.Parse(typeof(Categoria), _.Attribute("categoria").Value, ignoreCase: true),
+                    Contato = new Contato
+                    {
+                        Site = site,
+                        Telefone = telefone
+                    },
+                    Localizacao = new Localizacao
+                    {
+                        Bairro = localizacao.Element("bairro").Value,
+                        Logradouro = localizacao.Element("logradouro").Value,
+                        Latitude = Convert.ToDouble(localizacao.Element("latitude").Value),
+                        Longitude = Convert.ToDouble(localizacao.Element("longitude").Value)
+                    }
                 }
             );
 

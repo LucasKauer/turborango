@@ -18,11 +18,14 @@ namespace TurboRango.Web.Controllers
         // GET: Restaurantes
         public ActionResult Index()
         {
-            return View(db.Restaurantes.ToList());
+            var restaurantes = db.Restaurantes
+                .Include(x => x.Contato)
+                .Include(x => x.Localizacao);
+            return View(restaurantes.ToList());
         }
 
         // GET: Restaurantes/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -60,7 +63,7 @@ namespace TurboRango.Web.Controllers
         }
 
         // GET: Restaurantes/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -91,7 +94,7 @@ namespace TurboRango.Web.Controllers
         }
 
         // GET: Restaurantes/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -108,7 +111,7 @@ namespace TurboRango.Web.Controllers
         // POST: Restaurantes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             Restaurante restaurante = db.Restaurantes.Find(id);
             db.Restaurantes.Remove(restaurante);

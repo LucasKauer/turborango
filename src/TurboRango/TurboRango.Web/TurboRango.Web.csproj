@@ -7,13 +7,13 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F25B243D-2779-4B91-951F-A6FB6486A2E1}</ProjectGuid>
+    <ProjectGuid>{0C677196-019D-4E87-97DF-F60FE598162D}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TurboRango.Web</RootNamespace>
     <AssemblyName>TurboRango.Web</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -165,9 +165,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201506091814308_Criar_Tabelas.cs" />
-    <Compile Include="Migrations\201506091814308_Criar_Tabelas.Designer.cs">
-      <DependentUpon>201506091814308_Criar_Tabelas.cs</DependentUpon>
+    <Compile Include="Migrations\201506081923469_InitialCreate.cs" />
+    <Compile Include="Migrations\201506081923469_InitialCreate.Designer.cs">
+      <DependentUpon>201506081923469_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506081947023_CriarEntidades.cs" />
+    <Compile Include="Migrations\201506081947023_CriarEntidades.Designer.cs">
+      <DependentUpon>201506081947023_CriarEntidades.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -208,10 +212,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
@@ -223,10 +225,12 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Manage\ManageLogins.cshtml" />
     <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Restaurantes\Create.cshtml" />
@@ -247,13 +251,16 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TurboRango.Dominio\TurboRango.Dominio.csproj">
-      <Project>{5b54858e-bc73-44a2-8de2-27c2d56cbd28}</Project>
+      <Project>{ef926a69-d74e-4117-9695-5d743a773ed6}</Project>
       <Name>TurboRango.Dominio</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201506091814308_Criar_Tabelas.resx">
-      <DependentUpon>201506091814308_Criar_Tabelas.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201506081923469_InitialCreate.resx">
+      <DependentUpon>201506081923469_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506081947023_CriarEntidades.resx">
+      <DependentUpon>201506081947023_CriarEntidades.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -272,9 +279,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>52658</DevelopmentServerPort>
+          <DevelopmentServerPort>18137</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:52658/</IISUrl>
+          <IISUrl>http://localhost:26105/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TurboRango.Dominio;
+using TurboRango.Dominio.Utils;
 
 namespace TurboRango.ImportadorXML
 {
@@ -25,7 +22,7 @@ namespace TurboRango.ImportadorXML
         readonly static string DELETE_SQL_RESTAURANTE = "DELETE FROM [dbo].[Restaurante] WHERE Id = @Id";
         readonly static string DELETE_SQL_CONTATO = "DELETE FROM [dbo].[Contato] WHERE Id = @Id";
         readonly static string DELETE_SQL_LOCALIZACAO = "DELETE FROM [dbo].[Restaurante] WHERE Id = @Id";
-        
+
         readonly static string SELECT_SQL_RESTAURANTE = "SELECT [Restaurante].[Capacidade], [Restaurante].[Nome], [Restaurante].[Categoria],"
             + " [Contato].[Site], [Contato].[Telefone],"
             + " [Localizacao].[Bairro], [Localizacao].[Logradouro], [Localizacao].[Latitude], [Localizacao].[Longitude]"
@@ -36,7 +33,7 @@ namespace TurboRango.ImportadorXML
         readonly static string UPDATE_SQL_RESTAURANTE = "UPDATE [dbo].[Restaurante] SET [Capacidade] = @Capacidade, [Nome] = @Nome, [Categoria] = @Categoria WHERE [Id] = @Id";
         readonly static string UPDATE_SQL_CONTATO = "UPDATE [dbo].[Contato] SET [Site] = @Site, [Telefone] = @Telefone WHERE [Id] = @Id";
         readonly static string UPDATE_SQL_LOCALIZACAO = "UPDATE [dbo].[Localizacao] SET [Bairro] = @Bairro,[Logradouro] = @Logradouro, [Latitude] = @Latitude, [Longitude] = @Longitude WHERE [Id] = @Id";
-        
+
 
         public Restaurantes(string connectionString)
         {
@@ -74,31 +71,31 @@ namespace TurboRango.ImportadorXML
         /// <param name="id">Id do restaurante a ser manipulado</param>
         internal void Remover(int id)
         {
-             var idContato = BuscaContatoPassandoIdRestaurante(id);
-             var idLocalizacao = BuscaLocalizacaoPassandoIdRestaurante(id);
+            var idContato = BuscaContatoPassandoIdRestaurante(id);
+            var idLocalizacao = BuscaLocalizacaoPassandoIdRestaurante(id);
 
-             using (var connection = new SqlConnection(this.ConnectionString))
-             {
-                 connection.Open();
+            using (var connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Open();
 
-                 using (var removerRestaurante = new SqlCommand(DELETE_SQL_RESTAURANTE, connection))
-                 {
-                     removerRestaurante.Parameters.Add("@Id", SqlDbType.NVarChar).Value = id;
-                     removerRestaurante.ExecuteNonQuery();
-                 }
+                using (var removerRestaurante = new SqlCommand(DELETE_SQL_RESTAURANTE, connection))
+                {
+                    removerRestaurante.Parameters.Add("@Id", SqlDbType.NVarChar).Value = id;
+                    removerRestaurante.ExecuteNonQuery();
+                }
 
-                 using (var removerContato = new SqlCommand(DELETE_SQL_CONTATO, connection))
-                 {
-                     removerContato.Parameters.Add("@Id", SqlDbType.NVarChar).Value = idContato;
-                     removerContato.ExecuteNonQuery();
-                 }
+                using (var removerContato = new SqlCommand(DELETE_SQL_CONTATO, connection))
+                {
+                    removerContato.Parameters.Add("@Id", SqlDbType.NVarChar).Value = idContato;
+                    removerContato.ExecuteNonQuery();
+                }
 
-                 using (var removerLocalizacao = new SqlCommand(DELETE_SQL_LOCALIZACAO, connection))
-                 {
-                     removerLocalizacao.Parameters.Add("@Id", SqlDbType.NVarChar).Value = idLocalizacao;
-                     removerLocalizacao.ExecuteNonQuery();
-                 }
-             }
+                using (var removerLocalizacao = new SqlCommand(DELETE_SQL_LOCALIZACAO, connection))
+                {
+                    removerLocalizacao.Parameters.Add("@Id", SqlDbType.NVarChar).Value = idLocalizacao;
+                    removerLocalizacao.ExecuteNonQuery();
+                }
+            }
         }
 
         /// <summary>
@@ -123,7 +120,7 @@ namespace TurboRango.ImportadorXML
                         {
                             Capacidade = reader.GetInt32(0),
                             Nome = reader.GetString(1),
-                            Categoria = (Categoria) Enum.Parse(typeof(Categoria), reader.GetString(2), ignoreCase: true),
+                            Categoria = (Categoria)Enum.Parse(typeof(Categoria), reader.GetString(2), ignoreCase: true),
                             Contato = new Contato
                             {
                                 Site = reader.IsDBNull(3) ? null : reader.GetString(3),
@@ -140,7 +137,7 @@ namespace TurboRango.ImportadorXML
                     }
                 }
             }
-            
+
             return listaRestaurantes;
         }
 
@@ -170,8 +167,8 @@ namespace TurboRango.ImportadorXML
 
                 using (var atualizarContato = new SqlCommand(UPDATE_SQL_CONTATO, connection))
                 {
-                    atualizarContato.Parameters.Add("@Site", SqlDbType.NVarChar).Value = restaurante.Contato.Site ?? (object) DBNull.Value;
-                    atualizarContato.Parameters.Add("@Telefone", SqlDbType.NVarChar).Value = restaurante.Contato.Telefone ?? (object) DBNull.Value;
+                    atualizarContato.Parameters.Add("@Site", SqlDbType.NVarChar).Value = restaurante.Contato.Site ?? (object)DBNull.Value;
+                    atualizarContato.Parameters.Add("@Telefone", SqlDbType.NVarChar).Value = restaurante.Contato.Telefone ?? (object)DBNull.Value;
                     atualizarContato.Parameters.Add("@Id", SqlDbType.NVarChar).Value = idContato;
 
                     atualizarContato.ExecuteNonQuery();
@@ -204,8 +201,8 @@ namespace TurboRango.ImportadorXML
                 {
                     // http://stackoverflow.com/questions/4958379/what-is-the-difference-between-null-and-system-dbnull-value
                     // http://eduardopires.net.br/2012/08/c-sharp-iniciantes-syntactic-sugar/
-                    inserirContato.Parameters.Add("@Site", SqlDbType.NVarChar).Value = contato.Site ?? (object) DBNull.Value;
-                    inserirContato.Parameters.Add("@Telefone", SqlDbType.NVarChar).Value = contato.Telefone ?? (object) DBNull.Value;
+                    inserirContato.Parameters.Add("@Site", SqlDbType.NVarChar).Value = contato.Site ?? (object)DBNull.Value;
+                    inserirContato.Parameters.Add("@Telefone", SqlDbType.NVarChar).Value = contato.Telefone ?? (object)DBNull.Value;
 
                     connection.Open();
                     int idCriado = Convert.ToInt32(inserirContato.ExecuteScalar());
