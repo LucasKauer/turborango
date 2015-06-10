@@ -1,0 +1,20 @@
+$ function jQuery()
+$.get
+function jQuery[method]()
+$.get('/restaurante/restaurante').done(function(r) { console.log(r);});
+
+haversine
+
+versionar script e criar bundle para o haversine
+
+navigator.geolocation.getCurrentPosition()(
+	function success(resultado) {
+		console.log(resultado)
+	},
+	function error(err) {
+		console.log(err)
+	},
+	{ enableHighAccuracy: true, timeout: 500, maximumAge: 0 }
+	);
+
+no index acima do $.get
