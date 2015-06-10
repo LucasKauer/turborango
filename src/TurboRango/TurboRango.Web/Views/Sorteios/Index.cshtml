@@ -15,11 +15,27 @@
     var qtdRestaurante = @ViewBag.QtdRestaurantes;
     // alert(qtdRestaurante);
 
-    $.get('@Url.Action("Restaurantes", "Restaurantes")')
-        .done(function(response) {
-            response.restaurantes.forEach(function(r) {
-                console.log(r);    
-            });
-        });
+    navigator.geolocation.getCurrentPosition(
+        function success(resultado) {
+
+            var posicaoAtual = resultado.coords;
+
+            $.get('@Url.Action("Restaurantes", "Restaurantes")')
+                .done(function(response) {
+                    response.restaurantes.sort(function(r1, r2) {
+                        if (r1.Localizacao !== null && r2.Localizacao !== null) {
+                            var distancia1 = haversine(posicaoAtual, { latitude: r1.Localizacao.Latitude, longitude: r1.Localizacao.Longitude }, {unit: 'km'});
+                            var distancia2 = haversine(posicaoAtual, { latitude: r2.Localizacao.Latitude, longitude: r2.Localizacao.Longitude }, {unit: 'km'});
+                            return distancia1 > distancia2;
+                        }
+                    });
+                    console.log(response.restaurantes);
+                });
+        },
+        function error(err) {
+            console.error(err);
+        },
+        { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+    );
 </script>
 }
