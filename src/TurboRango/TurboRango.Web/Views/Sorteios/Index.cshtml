@@ -9,7 +9,17 @@
 
 @*<h3>@TurboRango.Web.Controllers.SorteiosController.GetIluminismo()</h3>*@
 
+@section Scripts {
+@Scripts.Render("~/bundles/haversine")
 <script>
     var qtdRestaurante = @ViewBag.QtdRestaurantes;
-    alert(qtdRestaurante);
+    // alert(qtdRestaurante);
+
+    $.get('@Url.Action("Restaurantes", "Restaurantes")')
+        .done(function(response) {
+            response.restaurantes.forEach(function(r) {
+                console.log(r);    
+            });
+        });
 </script>
+}

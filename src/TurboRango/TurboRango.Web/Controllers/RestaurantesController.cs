@@ -123,10 +123,13 @@ namespace TurboRango.Web.Controllers
         [AllowAnonymous]
         public JsonResult Restaurantes()
         {
-            var todos = db.Restaurantes.ToList();
+            var todos = db.Restaurantes
+                .Include(_ => _.Localizacao)
+                .ToList();
 
-            return Json(
-                todos, JsonRequestBehavior.AllowGet);
+            return Json(new {
+                restaurantes = todos, camigoal = DateTime.Now
+            }, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
