@@ -12,6 +12,7 @@
         public Contato Contato { get; set; }
         public Localizacao Localizacao { get; set; }
         public Categoria Categoria { get; set; }
+        public Cardapio Cardapio { get; set; }
 
         /*
         /// <summary>
