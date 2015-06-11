@@ -138,6 +138,7 @@ namespace TurboRango.Web.Controllers
             return db.Restaurantes
                 .Include(x => x.Localizacao)
                 .Include(x => x.Contato)
+                .Include(x => x.Cardapio)
                 .FirstOrDefault(x => x.Id == id);
         }
 
