@@ -22,8 +22,6 @@
                 <ul class="nav navbar-nav">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        @Html.Raw("Batman")
-                        //var ok = "Batman"
                         <li>@Html.ActionLink("Restaurantes", "Index", "Restaurantes")</li>
                     }
                 </ul>
