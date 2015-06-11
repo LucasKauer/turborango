@@ -12,14 +12,8 @@ namespace TurboRango.Dominio
         PratoPronto,
         [Description("Buffet")]
         Buffet,
-        [Description("Buffet Livre")]
-        BuffetLivre,
         [Description("Rodízio")]
         Rodizio,
-        [Description("Comida Japonesa")]
-        ComidaJaponesa,
-        [Description("Comida Mexicana")]
-        ComidaMexicana,
         [Description("Lanche")]
         Lanche,
         [Description("Bebida")]
@@ -27,7 +21,7 @@ namespace TurboRango.Dominio
         [Description("Acompanhamento")]
         Acompanhamento,
         [Description("Sobremesa")]
-        Sobremesas,
+        Sobremesa,
         [Description("Outro")]
         Outro
     }

@@ -32,7 +32,7 @@ namespace TurboRango.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Restaurante restaurante = db.Restaurantes.Find(id);
+            Restaurante restaurante = db.Restaurantes.Include(x => x.Localizacao).Include(x => x.Contato).FirstOrDefault(x => x.Id == id);
             if (restaurante == null)
             {
                 return HttpNotFound();
@@ -51,7 +51,7 @@ namespace TurboRango.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Capacidade,Nome,Categoria")] Restaurante restaurante)
+        public ActionResult Create([Bind(Include = "Id,Capacidade,Nome,Categoria,Contato,Localizacao")] Restaurante restaurante)
         {
             if (ModelState.IsValid)
             {
@@ -70,7 +70,7 @@ namespace TurboRango.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Restaurante restaurante = db.Restaurantes.Find(id);
+            Restaurante restaurante = db.Restaurantes.Include(x => x.Localizacao).Include(x => x.Contato).FirstOrDefault(x => x.Id == id);
             if (restaurante == null)
             {
                 return HttpNotFound();
@@ -127,8 +127,10 @@ namespace TurboRango.Web.Controllers
                 .Include(_ => _.Localizacao)
                 .ToList();
 
-            return Json(new {
-                restaurantes = todos, camigoal = DateTime.Now
+            return Json(new
+            {
+                restaurantes = todos,
+                camigoal = DateTime.Now
             }, JsonRequestBehavior.AllowGet);
         }
 

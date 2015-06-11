@@ -1,9 +1,11 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="jumbotron">
     <h1>TurboRango</h1>
-    <p class="lead">"Antes de dar comida a um mendigo, dá-lhe uma vara e ensina-lhe a pescar." - Provérbio Chinês.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <p class="lead">Bem vindo! Está com fome?</p>
+    <p>@Html.ActionLink("Começar »", "Index", "Sorteios", null, new { @class = "btn btn-primary btn-lg" })</p>
+
 </div>
