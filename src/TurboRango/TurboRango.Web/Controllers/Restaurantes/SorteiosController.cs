@@ -11,11 +11,11 @@ namespace TurboRango.Web.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
-        // public static int GetIluminismo()
-        // {
-        //     var noonz = 33;
-        //     return noonz;
-        // }
+        public static int GetIluminismo()
+        {
+            var noonz = 33;
+            return noonz;
+        }
 
         // GET: Sorteios
         public ActionResult Index()

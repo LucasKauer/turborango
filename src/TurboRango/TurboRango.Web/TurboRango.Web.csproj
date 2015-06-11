@@ -161,6 +161,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\Restaurantes\CardapiosController.cs" />
     <Compile Include="Controllers\Restaurantes\RestaurantesController.cs" />
     <Compile Include="Controllers\Restaurantes\SorteiosController.cs" />
     <Compile Include="Global.asax.cs">
@@ -173,6 +174,18 @@
     <Compile Include="Migrations\201506081947023_CriarEntidades.cs" />
     <Compile Include="Migrations\201506081947023_CriarEntidades.Designer.cs">
       <DependentUpon>201506081947023_CriarEntidades.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506111447173_CriarCardapio.cs" />
+    <Compile Include="Migrations\201506111447173_CriarCardapio.Designer.cs">
+      <DependentUpon>201506111447173_CriarCardapio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506111715568_AlterandoOCardapioDeIListParaIColletion.cs" />
+    <Compile Include="Migrations\201506111715568_AlterandoOCardapioDeIListParaIColletion.Designer.cs">
+      <DependentUpon>201506111715568_AlterandoOCardapioDeIListParaIColletion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506111723567_AlterandoPrecoParaDecimalEColocandoUmDateTime.cs" />
+    <Compile Include="Migrations\201506111723567_AlterandoPrecoParaDecimalEColocandoUmDateTime.Designer.cs">
+      <DependentUpon>201506111723567_AlterandoPrecoParaDecimalEColocandoUmDateTime.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -241,6 +254,11 @@
     <Content Include="Views\Restaurantes\Edit.cshtml" />
     <Content Include="Views\Restaurantes\Index.cshtml" />
     <Content Include="Views\Sorteios\Index.cshtml" />
+    <Content Include="Views\Cardapios\Create.cshtml" />
+    <Content Include="Views\Cardapios\Delete.cshtml" />
+    <Content Include="Views\Cardapios\Details.cshtml" />
+    <Content Include="Views\Cardapios\Edit.cshtml" />
+    <Content Include="Views\Restaurantes\Menu\Cardapio.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -264,6 +282,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506081947023_CriarEntidades.resx">
       <DependentUpon>201506081947023_CriarEntidades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506111447173_CriarCardapio.resx">
+      <DependentUpon>201506111447173_CriarCardapio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506111715568_AlterandoOCardapioDeIListParaIColletion.resx">
+      <DependentUpon>201506111715568_AlterandoOCardapioDeIListParaIColletion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506111723567_AlterandoPrecoParaDecimalEColocandoUmDateTime.resx">
+      <DependentUpon>201506111723567_AlterandoPrecoParaDecimalEColocandoUmDateTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

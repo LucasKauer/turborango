@@ -7,7 +7,7 @@ namespace TurboRango.Dominio
 {
     public class Cardapio : Entidade
     {
-        public IList<Prato> MenuRestaurantes { get; set; }
+        public ICollection<Prato> MenuRestaurantes { get; set; }
 
         //internal void adicionaPrato(Prato prato)
         //{

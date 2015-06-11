@@ -9,9 +9,10 @@ namespace TurboRango.Dominio
     {
         public string Nome { get; set; }
         public Tipo Tipo { get; set; }
+        public DateTime DateTime { get; set; }
         public string InformacaoExtra { get; set; }
         public InformacaoLegal InformacaoLegal { get; set; }
-        public int Preco { get; set; }
+        public decimal Preco { get; set; }
         public string UrlImagem { get; set; }
 
     }
