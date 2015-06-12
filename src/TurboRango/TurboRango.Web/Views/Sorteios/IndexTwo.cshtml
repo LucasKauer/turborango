@@ -1,0 +1,29 @@
+﻿@using TurboRango.Web.Controllers;
+@{
+    ViewBag.Title = "Index";
+    //ViewBag.QtdRestaurantes += 1;
+}
+<h2>Com fome?</h2>
+<h3 id="feedback">Sorteando entre @ViewBag.QtdPratos pratos...</h3>
+<button onclick="myFunction()" class="btn btn-default">Sortear</button>
+
+@section Scripts {
+   
+    <script>
+    var gerarRandomico = function (min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    };
+
+    function myFunction() {
+
+        $.get('@Url.Action("Pratos", "Cardapios")')
+               .done(function (response) {
+
+                   var random = gerarRandomico(0, response.cardapios.length);
+                   // sorteia de forma aleatória mas só escolhe entre os 10 mais próximos
+                   var escolhido = response.cardapios[random % 10];
+                   document.getElementById("feedback").innerHTML = "Hoje é dia: " + escolhido.Nome;
+               });
+        }
+    </script>
+}

@@ -7,13 +7,13 @@ namespace TurboRango.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class CriarCardapio : IMigrationMetadata
+    public sealed partial class CriaCardapio : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CriarCardapio));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CriaCardapio));
         
         string IMigrationMetadata.Id
         {
-            get { return "201506111447173_CriarCardapio"; }
+            get { return "201506120111153_CriaCardapio"; }
         }
         
         string IMigrationMetadata.Source

@@ -16,6 +16,59 @@ namespace TurboRango.Web.Migrations
 
         protected override void Seed(TurboRango.Web.Models.ApplicationDbContext context)
         {
+            context.Cardapios.AddOrUpdate(
+                r => r.Nome,
+                new Cardapio
+                {
+                    Nome = "Buffet Livre",
+                    Preco = (Decimal)27.5,
+                    DateTime = DateTime.Parse("01/06/2015"),
+                    Categoria = Categoria.Churrascaria
+                },
+                new Cardapio
+                {
+                    Nome = "Alaminuta",
+                    Preco = (Decimal)12.0,
+                    DateTime = DateTime.Parse("02/06/2015"),
+                    Categoria = Categoria.Comum
+                },
+                new Cardapio
+                {
+                    Nome = "Sushi",
+                    Preco = (Decimal)5.0,
+                    DateTime = DateTime.Parse("03/06/2015"),
+                    Categoria = Categoria.CozinhaJaponesa
+                },
+                new Cardapio
+                {
+                    Nome = "Hambúrguer",
+                    Preco = (Decimal)9.0,
+                    DateTime = DateTime.Parse("04/06/2015"),
+                    Categoria = Categoria.Fastfood
+                },
+                new Cardapio
+                {
+                    Nome = "Xis",
+                    Preco = (Decimal)7.95,
+                    DateTime = DateTime.Parse("05/06/2015"),
+                    Categoria = Categoria.Comum
+                },
+                new Cardapio
+                {
+                    Nome = "Hambúrguer Iluminatti",
+                    Preco = (Decimal)100.0,
+                    DateTime = DateTime.Parse("06/06/2015"),
+                    Categoria = Categoria.Fastfood
+                },
+                new Cardapio
+                {
+                    Nome = "Porção de Batata Frita",
+                    Preco = (Decimal)22.75,
+                    DateTime = DateTime.Parse("07/06/2015"),
+                    Categoria = Categoria.Comum
+                }
+                );
+
             context.Restaurantes.AddOrUpdate(
                 r => r.Nome,
                 new Restaurante
