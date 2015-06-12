@@ -179,6 +179,10 @@
     <Compile Include="Migrations\201506120111153_CriaCardapio.Designer.cs">
       <DependentUpon>201506120111153_CriaCardapio.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506120533478_popularBacoComCardapio.cs" />
+    <Compile Include="Migrations\201506120533478_popularBacoComCardapio.Designer.cs">
+      <DependentUpon>201506120533478_popularBacoComCardapio.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -284,6 +288,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506120111153_CriaCardapio.resx">
       <DependentUpon>201506120111153_CriaCardapio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506120533478_popularBacoComCardapio.resx">
+      <DependentUpon>201506120533478_popularBacoComCardapio.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
