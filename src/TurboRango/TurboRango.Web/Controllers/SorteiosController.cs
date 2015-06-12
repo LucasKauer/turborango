@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -28,6 +29,11 @@ namespace TurboRango.Web.Controllers
         // GET: SorteiosDois
         public ActionResult IndexTwo()
         {
+            var valores = JsonConvert.SerializeObject(db.Restaurantes
+                .ToList()
+                .Select(x => new { Restaurante = x.Nome, Categoria = x.Categoria }));
+
+            ViewBag.RestaurantesCategoria = valores;
             ViewBag.QtdPratos = db.Cardapios.Count();
 
             return View();

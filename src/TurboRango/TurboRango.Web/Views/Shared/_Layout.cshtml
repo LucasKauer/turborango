@@ -23,7 +23,9 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Restaurantes", "Index", "Restaurantes")</li>
-                        <li>@Html.ActionLink("Menu", "IndexTwo", "Sorteios")</li>}
+                        <li>@Html.ActionLink("Menu", "IndexTwo", "Sorteios")</li>
+                        <li>@Html.ActionLink("Cardapio", "Index", "Cardapios")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -40,10 +42,10 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    <script>
+    @*<script>
         $(function () {
             Globalize.culture('pt-BR');
         });
-    </script>
+    </script>*@
 </body>
 </html>
