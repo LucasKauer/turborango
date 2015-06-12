@@ -14,7 +14,6 @@ namespace TurboRango.Dominio
         
         #region !Prioridade
         public Categoria Categoria { get; set; }
-        public InformacaoLegal InformacaoLegal { get; set; }
         #endregion
     }
 }
