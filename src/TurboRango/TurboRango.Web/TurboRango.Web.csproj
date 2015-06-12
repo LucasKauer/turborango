@@ -259,6 +259,8 @@
     <Content Include="Views\Shared\DisplayTemplates\Contato.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Localizacao.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Prato.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Prato.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

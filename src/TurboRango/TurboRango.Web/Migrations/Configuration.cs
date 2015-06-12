@@ -68,7 +68,7 @@ namespace TurboRango.Web.Migrations
                     Contato = new Contato
                     {
                         Telefone = "3279-8828"
-                    }
+                    },
                 },
                 new Restaurante
                 {
