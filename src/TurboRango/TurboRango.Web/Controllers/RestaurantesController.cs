@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -18,8 +19,14 @@ namespace TurboRango.Web.Controllers
         {
             var restaurantes = db.Restaurantes
                 .Include(x => x.Contato)
-                .Include(x => x.Localizacao);
-            return View(restaurantes.ToList());
+                .Include(x => x.Localizacao)
+                .ToList();
+
+            ViewBag.Pizzarias = JsonConvert.SerializeObject(
+                restaurantes.Where(x => x.Categoria == Categoria.Pizzaria)
+            );
+
+            return View(restaurantes);
         }
 
         // GET: Restaurantes/Details/5
@@ -50,6 +57,9 @@ namespace TurboRango.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Capacidade,Nome,Categoria,Contato,Localizacao")] Restaurante restaurante)
         {
+            ModelState.Remove("Localizacao.Id");
+            ModelState.Remove("Contato.Id");
+
             if (ModelState.IsValid)
             {
                 db.Restaurantes.Add(restaurante);
@@ -138,7 +148,6 @@ namespace TurboRango.Web.Controllers
             return db.Restaurantes
                 .Include(x => x.Localizacao)
                 .Include(x => x.Contato)
-                .Include(x => x.Cardapio)
                 .FirstOrDefault(x => x.Id == id);
         }
 

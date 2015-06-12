@@ -24,5 +24,13 @@ namespace TurboRango.Web.Controllers
 
             return View();
         }
+
+        // GET: SorteiosDois
+        public ActionResult IndexTwo()
+        {
+            ViewBag.QtdPratos = db.Cardapios.Count();
+
+            return View();
+        }
     }
 }
